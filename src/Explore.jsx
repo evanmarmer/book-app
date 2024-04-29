@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import BookCard from './BookCard';
 
 export default function Explore() {
     
@@ -10,10 +11,9 @@ export default function Explore() {
 
     function handleSearch(e) {
         e.preventDefault()
-        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&key=${key}`)
+        axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=35&key=${key}`)
         .then((response) => {
-        //   setBookInfo();
-          console.log(response.data);
+          setBookInfo(response.data.items);
         });
       }
 
@@ -26,6 +26,11 @@ export default function Explore() {
 
     return (
         <>
+             <div className='book-grid'>
+                {bookInfo.map((book) => {
+                 return <BookCard photo={book.volumeInfo.imageLinks}/>
+                })}
+            </div>
             <div className="search">
                 <form onSubmit={handleSearch}>
                     <input className="input"
