@@ -12,3 +12,9 @@
     font-size: 20px;
     font-family: 'Gill Sans', sans-serif;
 }
+
+.back {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+}

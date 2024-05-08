@@ -13,22 +13,21 @@ export default function Explore() {
         e.preventDefault()
         axios.get(`https://www.googleapis.com/books/v1/volumes?q=${searchTerm}&maxResults=35&key=${key}`)
         .then((response) => {
-          setBookInfo(response.data.items);
+          setBookInfo(response.data.items.filter((book) => book?.volumeInfo?.imageLinks?.thumbnail));
         });
       }
 
     function handleKeyDown(e) {
         if (e.key === 'Enter') {
-           handleSaveClick(e)
+           handleSearch(e)
         }
     }
-
 
     return (
         <>
              <div className='book-grid'>
                 {bookInfo.map((book) => {
-                 return <BookCard photo={book.volumeInfo.imageLinks}/>
+                 return <BookCard photo={book.volumeInfo.imageLinks} info= {book}/>
                 })}
             </div>
             <div className="search">
